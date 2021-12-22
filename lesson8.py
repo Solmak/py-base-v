@@ -132,4 +132,80 @@ def big_4(number):
     return number > 4 
 
 print (my_filter(numbers, big_4))
+
+
+def my_filter(numbers, function):
+    result = []
+    for number in numbers:
+        if function(number):
+            result.append(number)
+    return result
+
+# lambda - неименованная,
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+print (my_filter(numbers, lambda number: number % 2 == 0))
+print (my_filter(numbers, lambda number: number % 2 != 0))
+print (my_filter(numbers, lambda number: number > 4))
 """
+
+# sorted  - сортировка последовательности
+# sorted(iterable, *, key=None, reverse=False)
+# аргументы: последовательность, ключ для сортировки, порядок
+
+# набот чисел
+numbers = [1,7,4,6,3,9,1,2]
+# по возр
+print(sorted(numbers))
+# по убыв
+print(sorted(numbers,reverse=True))
+
+# набор строк
+names = ['Max', 'Leo', 'Kate', 'John']
+# по алфав
+print(sorted(names))
+
+# города и числ насел (условные)
+cities = [('Москва', 1000), ('Paris', 2000), ('Vegas', 500)]
+# по умолч сраб по алфав
+print(sorted(cities))
+# как по населению?
+def by_count(city):
+    return city[1]
+
+print(sorted(cities, key=by_count))
+# или лямбда
+print(sorted(cities, key=lambda city: city[1]))
+
+# filter - фильтрация последовательностей
+# filter(function, iterable)
+# аргументы: функция фильтрации, последовательность
+
+# набор чисел
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+# получить только четные
+result = filter(lambda number: number % 2 == 0, numbers)
+print(result)
+print(type(result))
+result = list(result)
+print(result)
+
+# набор строк
+names = ['Max', 'Leo', 'Kate']
+
+# получить строки больше 3-х символов
+print(list(filter(lambda name: len(name) > 3,names))) 
+
+# map - применение функции к каждому элементу последовательности
+# map(func, iterable, ...)
+# аргументы: функция, последовательность
+
+# набор чисел
+numbers = [2, 3, 5, 8]
+# получить список квадратов чисел
+print(list(map(lambda x: x**2, numbers)))
+# привести числа к строке
+print(list(map(lambda x: str(x), numbers)))
+
+
+
