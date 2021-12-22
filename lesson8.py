@@ -1,4 +1,4 @@
-# Урок 8. Функции
+""" # Урок 8. Функции
 # ? функции без имени?
 
 # abs - модуль числа
@@ -30,4 +30,10 @@ for i in range(3):
 print(numbers)
 print(f'Max: {max(numbers)}')
 print(f'Min: {min(numbers)}')
-print(f'Sum: {sum(numbers)}')
+print(f'Sum: {sum(numbers)}') """
+
+# Первая функция
+def print_sep():
+    print('-' * 100)
+
+print_sep()
