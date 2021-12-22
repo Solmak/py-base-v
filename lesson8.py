@@ -33,7 +33,14 @@ print(f'Min: {min(numbers)}')
 print(f'Sum: {sum(numbers)}') """
 
 # Первая функция
-def print_sep():
-    print('-' * 100)
+def get_sep(sep, sep_len):
+    return sep * sep_len
 
-print_sep()
+# используем знак разделителя и меняем длину
+print(get_sep('*', 100))
+print(get_sep('-', 60))
+
+# встраиваем в текст возврат
+sep = get_sep('-', 20)
+text = 'Hello {} Func {}'.format(sep, sep)
+print(text)
