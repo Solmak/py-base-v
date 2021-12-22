@@ -6,7 +6,8 @@ number = random.randint(1, 100)
 user_number = None
 count = 0
 levels = {1: 10, 2: 5, 3: 3} # difficulty level: number of attempts
-max_count = levels[3]
+level = int(input('Сhoose the difficulty level (1-3): '))
+max_count = levels[level]
 while user_number != number :
     count += 1
     if count > max_count:
