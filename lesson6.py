@@ -2,10 +2,11 @@
 import random
 number = random.randint(1, 100)
 # ! print (number)
-#  Version 4 +limit the number of attempts
+#  Version 5 +difficulty level
 user_number = None
 count = 0
-max_count = 3
+levels = {1: 10, 2: 5, 3: 3} # difficulty level: number of attempts
+max_count = levels[3]
 while user_number != number :
     count += 1
     if count > max_count:
