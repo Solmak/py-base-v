@@ -5,10 +5,11 @@
 import random
 
 def rnd_list(list_name):
-    if len(list_name) > 0:
+    # if len(list_name) > 0:    # можно было по другому, забыл...
+    if list_name:               # вот так
         return random.choice(list_name)
-    else:
-        return None
+    # else:                     # в Python если мы ничего не возвращаем, тоже будет None
+    #     return None           # так что этот else лишний
 
 
 
