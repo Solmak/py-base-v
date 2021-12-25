@@ -136,19 +136,215 @@
 # параметр encoding определяет кодировку
 # open(‘filename’, ‘w’, encoding=’utf-8’)
 
-# Открываем файл для записи байтов. Кодировка тут не треба, ведь открываем в двоичном виде
-with open('lesson12\\bytes.txt', 'wb') as f: # закроется автоматически когда закроется whith
-    pass
-# Открываем файл для чтения байтов. Кодировка -
-with open('lesson12\\bytes.txt', 'rb') as f: 
-    pass
-# открываем в текстовим виде с указанием кодировки
-with open('lesson12\\bytes.txt', 'r', encoding='utf-8') as f: 
-    pass
+# # Открываем файл для записи байтов. Кодировка тут не треба, ведь открываем в двоичном виде
+# with open('lesson12\\bytes.txt', 'wb') as f: # закроется автоматически когда закроется whith
+#     pass
+# # Открываем файл для чтения байтов. Кодировка -
+# with open('lesson12\\bytes.txt', 'rb') as f: 
+#     pass
+# # открываем в текстовим виде с указанием кодировки
+# with open('lesson12\\bytes.txt', 'r', encoding='utf-8') as f: 
+#     pass
 
 # Запись байтов в файл
 # f.write(b’some bytes’) — файл открыт в режиме wb
 # f.write(‘some str’) — файл открыт в режиме w
 # в любом случае информация хранится в виде нулей и единиц
 
+# # Открываем файл для записи байтов. Кодировка тут не треба, ведь открываем в двоичном виде
+# with open('lesson12\\bytes.txt', 'wb') as f: 
+#     f.write(b'Hello bytes')
+# # читаем как текст
+# with open('lesson12\\bytes.txt', 'r', encoding='ascii') as f: 
+#     print(f.read())
+# # Открываем файл для записи байтов.
+# with open('lesson12\\bytes.txt', 'wb') as f: 
+#     # пишем строку байт
+#     str = 'Привет мир'
+#     f.write(str.encode('utf-8'))
+# # Читаем текст с кодировкой utf-8
+# with open('lesson12\\bytes.txt', 'r', encoding='utf-8') as f: 
+#     print(f.read())
 
+# Чтение байтов из файла
+# f.read() - файл открыт в режиме rb — читаем байты
+# f.read() - файл открыт в режиме r — читаем строки
+
+# # Открываем файл для записи байтов.
+# with open('lesson12\\bytes.txt', 'wb') as f: 
+#     # пишем строку байт
+#     str = 'Привет мир'
+#     f.write(str.encode('utf-8'))
+# # или, что равнозначно:
+# # with open('lesson12\\bytes.txt', 'w', encoding='utf-8') as f: 
+# #     f.write('Привет мир')
+
+# # Открываем в режиме чтения байт
+# with open('lesson12\\bytes.txt', 'rb') as f: 
+#     # Читаем байты
+#     result = f.read()
+#     print(result)
+#     print(type(result))
+#     s = result.decode('utf-8')
+#     print(s)
+
+# -----------------------------------------------------
+# Сериализация
+# Процесс преобразования объекта в поток байтов для сохранения или передачи в память, базу данных или файл.
+# Обратный процесс — десериализация.
+
+# Применение сериализации
+# сохранение объекта в файл
+# сохранение объекта в базу данных
+# передача объекта по сети
+# ...
+# Способы записи объекта в файл
+# ручной (создание велосипеда)
+# универсальный - pickle
+
+# Ручной способ
+# {‘name’: ‘Max’, ‘phones’: [123, 345]}
+# Как перевести такой объект (dict) в байты для сохранения в файл?
+# Придумать способ приведения объекта к более простым.
+# Придумать свой формат хранения.
+# person = {'name': 'Max','phones': [123, 456]}
+
+# # откроем файл
+# with open('lesson12\\person.dat', 'wb') as f:
+#     # например запишем оъект в файл построчно
+#     # сначала имя
+#     name = person['name']
+#     f.write(f'{name}\n'.encode('utf-8'))
+#     # получим телефоны
+#     phones = person['phones']
+#     # запишем телефоны построчно
+#     for phone in phones:
+#         f.write(f'{phone}\n'.encode('utf-8'))
+# print('Объект записан')
+
+# Теперь пробуем прочитать
+# откроем файл
+# with open('lesson12\\person.dat', 'rb') as f:
+#     # нам надо знать как мы записывали объект
+#     # прочитаем файл в список
+#     result = f.readlines()
+
+# # теперь воссоздаем исходный объект
+# person = {}
+# person['name'] = result[0].decode('utf-8').replace('\n', '')
+# # далее телефоны
+# phones = []
+# for bphone in result[1:]:
+#     phones.append(bphone.decode('utf-8').replace('\n', ''))
+
+# person['phones'] = phones
+# # получили исходный... уффф, а если структура изменится?
+# print(person)
+# # Ручной способ (Недостатки)
+# # Не универсальный.
+# # При небольшом изменении объекта изменится весь алгоритм.
+# # Надо помнить, как мы делали сохранение, чтобы потом прочитать.
+# # Трудоемкий.
+
+# -----------------------------------------------------
+# Модуль pickle
+# Сохраняет сложные объекты в файл. 
+# Преобразует сложные объекты в байты.
+# Встроен в Python.
+# Основные функции
+# dump — сохранение объекта в файл 
+# dumps — преобразование объекта в байты
+# load — загрузка объекта из файла
+# loads — загрузка объекта из набора байт
+
+# import pickle
+
+# person = {'name': 'Max','phones': [123, 456]}
+
+# # Открываем файл для записи
+# with open('lesson12\\person.dat', 'wb') as f:
+#     # сразу пишем объкт целиком с помощью pickle
+#     pickle.dump(person, f)
+# print('Объект записан')
+
+# # Читаем что мы там поназаписали
+# person1 = None
+# with open('lesson12\\person.dat', 'rb') as f:
+#     person1 = pickle.load(f)
+# print(person1)
+
+# -----------------------------------------------------
+# Формат json
+# JavaScript Object Notation.
+# Текстовый формат обмена данными, основанный на JavaScript.
+# Аналогичен набору словарей, списков, простых типов данных в Python.
+# Является просто текстом (строкой).
+# Применение
+# хранение данных
+# передача данных
+# чаще всего используется в web-разработке для передачи данных по протоколу http
+# json в Python
+# Основные структуры Python схожи с форматом.
+# Требуется только преобразование в строку и обратно.
+# Этим занимается модуль json.
+# import json.
+# json. Основные функции
+# dump — сохранение объекта в формате json в файл 
+# dumps — преобразование объекта в json (в текст)
+# load — загрузка объекта из файла
+# loads — загрузка объекта из формата json (строки)
+
+# import json
+
+# friends = [
+#     {'name': 'Max', 'age': 23, 'phones': [123,345]},
+#     {'name': 'Leo', 'age': 21}
+# ]
+# # смотри тип
+# print(type(friends))
+
+# # Преобразуем в json
+# json_friends = json.dumps(friends)
+# # смотрим
+# print(type(json_friends))
+# print(json_friends)
+
+# # обратно из json в объект
+# friends1 = json.loads(json_friends)
+# print(type(friends1))
+# print(friends)
+
+# Как в предыдущем, но в файл
+import json
+
+friends = [
+    {'name': 'Max', 'age': 23, 'phones': [123,345]},
+    {'name': 'Leo', 'age': 21}
+]
+
+with open('lesson12\\friends.json', 'w') as f:
+    # Преобразуем и сохраняем в файл
+    json_friends = json.dump(friends, f)
+
+# # обратно из файла в объект
+with open('lesson12\\friends.json', 'r') as f:
+    friends = json.load(f)
+
+print(friends)
+print(type(friends))
+
+# -----------------------------------------------------
+# Задача
+# Передать список любимых песен и их исполнителей своему другу, разработчику C#.
+
+import json
+
+favourite_tracks = [
+    {'name:': 'Вечная любовь', 'artist': 'Агата Кристи'},
+    {'name:': 'Angel', 'artist': 'Massive attack'},
+    {'name:': 'Jamming', 'artist': 'Bob Marley'}
+]
+with open('lesson12\\tracks.json', 'w', encoding='utf-8') as f:
+    json.dump(favourite_tracks, f)
+
+print('File saved')
