@@ -13,17 +13,17 @@ jmfg = json.dumps(my_favourite_group);
 print('Bytes:', bmfg)
 print('Json:', jmfg)
 
-with open('lesson12\\mfg.dat', 'wb') as f:
-    f.write(bmfg)
+with open('lesson12\\mfg.pickle', 'wb') as f:
+    pickle.dump(my_favourite_group, f)
 
 with open('lesson12\\mfg.json', 'w', encoding='utf-8') as f:
-    f.write(jmfg)
+    json.dump(my_favourite_group, f)
 
 # 2: Создать модуль music_deserialize.py. В этом модуле открыть файлы group.json и group.pickle, 
 # прочитать из них информацию. И получить объект: словарь из предыдущего задания.
 import json, pickle
 
-with open('lesson12\\mfg.dat', 'rb') as f:
+with open('lesson12\\mfg.pickle', 'rb') as f:
     mfg1 = pickle.load(f)
 print('Bytes: ', mfg1)
 
