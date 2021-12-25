@@ -118,7 +118,7 @@
 # Кодировка должна поддерживать символы нужного нам алфавита.
 
 s = 'Hello world Мир'
-sb = s.encode('ascii')
+sb = s.encode('utf-8')
 print(type(sb))
 print(sb)
 
