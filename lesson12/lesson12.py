@@ -117,7 +117,7 @@
 # При переводе строки str в байты bytes указываем кодировку.
 # Кодировка должна поддерживать символы нужного нам алфавита.
 
-s = 'Hello world'
+s = 'Hello world Мир'
 sb = s.encode('ascii')
 print(type(sb))
 print(sb)
